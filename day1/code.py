@@ -21,53 +21,33 @@
 
 # Consider your entire calibration document. What is the sum of all of the calibration values?
 
-data = open("input.txt", "r")
+data = open("input_final.txt", "r")
 
 number_text = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 
 total = 0
-map_number = {}
+
 for line in data:
     line = line.strip()
     concat_number = ''
-
+    map_number = []
     for number in number_text:
-        find_number = line.find(number)
-        if(find_number == -1):
-            continue
-
-        map_number[number] = find_number
-
-    sorted_map = sorted(map_number.items(), key=lambda x: x[1])
-
-    #print(sorted_map)
-
-    for number in sorted_map:
-        line = line.replace(number[0], str(number_text.index(number[0]) + 1))
-
-#         line = line.replace(number[0], number_text(), 1)
-
-    #print(line)
-
+        find_number = line.find(number) 
+        while find_number != -1:
+            current_number = str(number_text.index(number) + 1)
+            map_number.append((current_number, find_number))
+            find_number = line.find(number, find_number + 1) 
+            
+    current_index = 0
     for val in line:
         if val.isdigit():
-            concat_number += val
+            map_number.append((val, current_index))
+        current_index += 1    
 
-    print(concat_number)
+    sorted_map = sorted(map_number, key=lambda x: x[1])
 
-    # if(len(concat_number) < 2):
-    #     continue
-
-    first_digit = ''
-    last_digit = ''
-
-    
-    first_digit = concat_number[0]
-
-    if(len(concat_number) > 1):
-        last_digit = concat_number[len(concat_number) - 1]
-
-    print(first_digit + last_digit)
+    first_digit = sorted_map[0][0]
+    last_digit = sorted_map[len(sorted_map) - 1][0]
 
     total += int(first_digit + last_digit)
 
