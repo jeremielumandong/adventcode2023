@@ -21,3 +21,54 @@
 
 # Consider your entire calibration document. What is the sum of all of the calibration values?
 
+data = open("input.txt", "r")
+
+number_text = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+
+total = 0
+map_number = {}
+for line in data:
+    line = line.strip()
+    concat_number = ''
+
+    for number in number_text:
+        find_number = line.find(number)
+        if(find_number == -1):
+            continue
+
+        map_number[number] = find_number
+
+    sorted_map = sorted(map_number.items(), key=lambda x: x[1])
+
+    #print(sorted_map)
+
+    for number in sorted_map:
+        line = line.replace(number[0], str(number_text.index(number[0]) + 1))
+
+#         line = line.replace(number[0], number_text(), 1)
+
+    #print(line)
+
+    for val in line:
+        if val.isdigit():
+            concat_number += val
+
+    print(concat_number)
+
+    # if(len(concat_number) < 2):
+    #     continue
+
+    first_digit = ''
+    last_digit = ''
+
+    
+    first_digit = concat_number[0]
+
+    if(len(concat_number) > 1):
+        last_digit = concat_number[len(concat_number) - 1]
+
+    print(first_digit + last_digit)
+
+    total += int(first_digit + last_digit)
+
+print(total)
