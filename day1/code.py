@@ -47,7 +47,7 @@ for line in data:
     sorted_map = sorted(map_number, key=lambda x: x[1])
 
     first_digit = sorted_map[0][0]
-    last_digit = sorted_map[len(sorted_map) - 1][0]
+    last_digit = sorted_map[-1][0]
 
     total += int(first_digit + last_digit)
 
