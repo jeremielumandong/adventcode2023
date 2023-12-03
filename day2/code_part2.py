@@ -21,10 +21,7 @@
 
 data = open("input.txt", "r")
 
-games = []
-
 overall_total = 0
-current_game_index = 1
 for line in data:
     split_game_input = line.split(":")
     draws = split_game_input[1].strip().split(";")
