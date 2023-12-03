@@ -26,33 +26,25 @@ games = []
 overall_total = 0
 current_game_index = 1
 for line in data:
-
-    map_draw_color = []
     split_game_input = line.split(":")
     draws = split_game_input[1].strip().split(";")
 
     lowest_combination = {
-      "blue": -1,
-      "red": -1,
-      "green": -1
+        "blue": -1,
+        "red": -1,
+        "green": -1
     }
+
     for draw in draws:
-        draw = draw.strip()
         colors = draw.split(",")
-        
+
         for color in colors:
-            color = color.strip()
-            map_color = color.split(' ')
+            value, key = color.strip().split(' ')
+            lowest_combination[key] = max(lowest_combination.get(key, -1), int(value))
 
-            current_lowest_val = lowest_combination[map_color[1]]
-            
-            if(current_lowest_val == -1 or (int(map_color[0]) > current_lowest_val)):
-               lowest_combination[map_color[1]] = int(map_color[0])
-
-        
     game_total = 1
-    for key, value in lowest_combination.items():
-        if(value != -1):
+    for value in lowest_combination.values():
+        if value != -1:
             game_total *= value
 
     #print(lowest_combination)
